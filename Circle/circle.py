@@ -26,8 +26,7 @@ class Circle:
 
     @classmethod
     def sort_circles(cls, *args):
-        circle_list = []
-        [circle_list.append(_) for _ in args]
+        circle_list = [circle for circle in args]
         circle_list.sort()
         return circle_list
 
@@ -36,21 +35,19 @@ class Circle:
         width = self.perimeter_width
         center = radius + width / 2
         distance = math.sqrt((x-center)**2 + (y-center)**2)
+
         # I'm drawing perimeter width on a range [-perimeter_width, perimeter_width] around the radius
-        if (distance > radius - width / 2) & (distance < radius + width / 2):
-            return True
-        else:
-            return False
+        return (distance > radius - width / 2) & (distance < radius + width / 2)
+
+    def print_char(self, x_coord, y_coord):
+        char = "*" if self.is_point_inside_circle(x_coord, y_coord) else " "
+        print(char, end=" ")
 
     def print_circle(self):
         diameter = self.diameter
         width = self.perimeter_width
-        for x in range(0, diameter + width):
-            x_coord = x + 0.5
-            for y in range(0, diameter + width):
-                y_coord = y + 0.5
-                if self.is_point_inside_circle(x_coord, y_coord):
-                    print("*", end=" ")
-                else:
-                    print(" ", end=" ")
-            print("")
+        char_to_draw = diameter + width
+
+        for x in range(char_to_draw):
+            [self.print_char(x+0.5, y+0.5) for y in range(char_to_draw)]
+            print()
