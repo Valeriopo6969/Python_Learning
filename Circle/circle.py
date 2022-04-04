@@ -10,10 +10,9 @@ class Circle:
     def area(self):
         return math.pi * (self.radius ** 2)
 
-    def __init__(self, radius=None, perimeter_width=None, from_diameter=False):
-        self.radius = radius if radius else 1
-        self.radius = math.floor(radius * 0.5) if from_diameter else radius
-        self.perimeter_width = perimeter_width if perimeter_width else 1
+    def __init__(self, radius, perimeter_width=1):
+        self.radius = radius
+        self.perimeter_width = perimeter_width
 
     def __add__(self, other):
         return Circle(self.radius + other.radius)
@@ -25,10 +24,9 @@ class Circle:
         return self.radius == other.radius
 
     @classmethod
-    def sort_circles(cls, *args):
-        circle_list = [circle for circle in args]
-        circle_list.sort()
-        return circle_list
+    def from_diameter(cls, diameter, perimeter_width=1):
+        cls.radius = diameter * 0.5
+        cls.perimeter_width = perimeter_width
 
     def is_point_inside_circle(self, x, y):
         radius = self.radius
@@ -49,5 +47,6 @@ class Circle:
         char_to_draw = diameter + width
 
         for x in range(char_to_draw):
-            [self.print_char(x+0.5, y+0.5) for y in range(char_to_draw)]
+            for y in range(char_to_draw):
+                self.print_char(x+0.5, y+0.5)
             print()

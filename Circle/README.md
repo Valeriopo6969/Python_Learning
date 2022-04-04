@@ -4,9 +4,11 @@ This exercise consist on having a [class](https://github.com/Valeriopo6969/Pytho
 ## Features
  * A <b>Circle</b> can be defined by either specifying the radius or the diameter:
 ```python
+    from circle import Circle
+
     my_circle_from_radius = Circle(5) # my_circle.radius = 5
  
-    my_circle_from_diameter = Circle(5, 1, True) # my_circle.radius = 2.5
+    my_circle_from_diameter = Circle.from_diameter(5) # my_circle.radius = 2.5
 ```
  * Get the circle's <b>Area</b>. (π*r^2)
 ```python
@@ -16,12 +18,12 @@ This exercise consist on having a [class](https://github.com/Valeriopo6969/Pytho
   ```python
       # Second parameter is for setting visual perimeter width, more on the actual script
       circle_1 = Circle(7, 2)
-      circle_2 = Circle(20, 1, True)
+      circle_2 = Circle.from_diameter(20)
       
       my_circles = [circle_1, circle_2]
       [Circle.print_circle(circle) for circle in my_circles]
 ```
-<img src="https://github.com/Valeriopo6969/Python_Learning/blob/main/Circle/print_example.jpg">
+<img src="print_example.jpg">
 
  * Able to add two circles together
  * Able to compare two circles to see which is bigger
