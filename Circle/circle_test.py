@@ -1,6 +1,5 @@
-import pytest
-from circle import Circle
 import math
+from circle import Circle
 
 
 def test_correct_circle_from_radius():
@@ -10,7 +9,7 @@ def test_correct_circle_from_radius():
 
 
 def test_correct_circle_from_diameter():
-    my_circle = Circle(10, 1, True)
+    my_circle = Circle.from_diameter(10)
     assert my_circle.radius == 5
     assert my_circle.diameter == 10
 
@@ -42,8 +41,8 @@ def test_correct_circle_sorting():
     my_circle_0 = Circle(1)
     my_circle_1 = Circle(2)
     my_circle_2 = Circle(3)
-    my_circles = Circle.sort_circles(my_circle_2, my_circle_1, my_circle_0)
+    my_circles = [my_circle_0, my_circle_1, my_circle_2]
+    my_circles.sort()
     assert my_circles[0] == my_circle_0
     assert my_circles[1] == my_circle_1
     assert my_circles[2] == my_circle_2
-
