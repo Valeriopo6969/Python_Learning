@@ -1,0 +1,75 @@
+global proc VI_First()
+{
+    string $materials[] = {"RedLambert", "GreenLambert", "BlueBlinn"};
+ 
+    for ($i=0; $i<3; $i=$i+1){
+        string $mySphere[] = `polySphere -r 1`;
+        string $myCube[] = `polyCube -w 1 -h 1 -d 1`;
+        setAttr ($mySphere[0] + ".translateX") ($i * 5); 
+        setAttr ($myCube[0] + ".translateX") ($i * 5); 
+        setAttr ($myCube[0] + ".translateY") 3;
+        hyperShade -assign $materials[$i];
+    }
+}
+
+global proc VI_Second()
+{
+    move -r -y 1.5;
+}
+
+global proc VI_Third()
+{
+    int $counter;
+    for($item in (`ls-sl`)){
+        $counter=$counter+1;
+    }
+   
+    print ("You are selecting " +$counter+ " objects");
+}
+
+global proc VI_Fourth()
+{
+    string $sel[] = `ls-sl`;
+    int $t, $m, $j;
+    for($item in $sel){
+        if(nodeType($item)=="transform"){
+            $t=$t+1;
+        }
+        if(nodeType($item)=="joint"){
+            $j=$j+1;
+        }
+          if(nodeType($item)=="mesh"){
+            $m=$m+1;
+        }
+    }
+
+    print ("You are selecting " +$t+ " transforms, "+
+            $j + "joints and " + $m + "meshes.\n"
+    );
+}
+
+global proc VI_Fifth()
+{
+    string $win = "WelcomeTraveler";
+    
+    if (`window -q -ex $win`)
+    {
+        deleteUI $win;
+    }
+
+    window $win;
+
+    rowColumnLayout -numberOfColumns 2 -columnAttach 1 "right" 10
+    -columnWidth 1 100 -columnWidth 2 250;
+    text -label "Name";
+    global string $field;
+    $field= `textField`;
+    text -label "";
+    button -label "Welcome" -c "WelcomeButton($field)";
+    showWindow $win;
+}
+
+proc WelcomeButton(string $f){
+    string $text = `textField -q -text $f`;
+    print("Welcome "+$text+"\n");
+}
